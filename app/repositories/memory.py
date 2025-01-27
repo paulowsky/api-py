@@ -1,5 +1,4 @@
 from abc import ABC
-from uuid import uuid4
 from typing import Iterable
 from typing import Optional
 
@@ -38,5 +37,4 @@ class MemoryRepository(BaseRepository, ABC):
         id = str(id)
         self.data = list(filter(lambda e: e.id != id, self.data))
 
-    def commit(self) -> None:
-        ...
+    def commit(self) -> None: ...

@@ -1,11 +1,16 @@
-from fastapi import APIRouter, Depends, Path, HTTPException
+from fastapi import APIRouter, Path, HTTPException
 from typing import List, Annotated, Optional
 from uuid import UUID
 
-from app.repositories import BaseRepository
 from app.repositories.user_postgres import PostgresRepository
 from app.dtos.user import UserAddRequest, UserUpdateRequest, UserResponse
-from app.use_cases.user import UserListUseCase, UserGetUseCase, UserAddUseCase, UserUpdateUseCase, UserRemoveUseCase
+from app.use_cases.user import (
+    UserListUseCase,
+    UserGetUseCase,
+    UserAddUseCase,
+    UserUpdateUseCase,
+    UserRemoveUseCase,
+)
 
 
 repo = PostgresRepository()
@@ -18,9 +23,11 @@ async def list_user() -> List[UserResponse]:
 
 
 @router.get("/user/{id}")
-async def get_users(id: Annotated[UUID, Path(title="The ID of the user")]) -> Optional[UserResponse]:
+async def get_users(
+    id: Annotated[UUID, Path(title="The ID of the user")]
+) -> Optional[UserResponse]:
     entity = UserGetUseCase(repo).execute(id)
-    if entity == None:
+    if entity is None:
         raise HTTPException(status_code=404, detail="User not found")
     return UserResponse.model_validate(entity)
 

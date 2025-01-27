@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI
 from .config.env import settings
 import uvicorn
 
@@ -16,4 +16,9 @@ async def healthz():
 
 def start():
     """Launched with poetry run start at root level"""
-    uvicorn.run("app.main:app", host=settings.host, port=settings.port, reload=settings.hot_reload_enabled)
+    uvicorn.run(
+        "app.main:app",
+        host=settings.host,
+        port=settings.port,
+        reload=settings.hot_reload_enabled,
+    )

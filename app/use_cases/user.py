@@ -21,6 +21,7 @@ class UserListUseCase(BaseUseCase):
     def execute(self) -> Iterable[UserEntity]:
         return self.repo.list()
 
+
 class UserGetUseCase(BaseUseCase):
     repo: BaseRepository
 
@@ -29,6 +30,7 @@ class UserGetUseCase(BaseUseCase):
 
     def execute(self, id: UUID4) -> Optional[UserEntity]:
         return self.repo.get(id)
+
 
 class UserAddUseCase(BaseUseCase):
     repo: BaseRepository
@@ -41,6 +43,7 @@ class UserAddUseCase(BaseUseCase):
         entity.id = uuid4()
         return self.repo.add(entity)
 
+
 class UserUpdateUseCase(BaseUseCase):
     repo: BaseRepository
 
@@ -49,9 +52,10 @@ class UserUpdateUseCase(BaseUseCase):
 
     def execute(self, data: BaseModel) -> UserEntity:
         entity = self.repo.get(data.id)
-        if entity == None:
+        if entity is None:
             raise HTTPException(status_code=404, detail="User not found")
         return self.repo.update(transform(data))
+
 
 class UserRemoveUseCase(BaseUseCase):
     repo: BaseRepository

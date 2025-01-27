@@ -30,11 +30,12 @@ class PostgresRepository(BaseRepository, ABC):
         return other
 
     def update(self, other: UserEntity) -> UserEntity:
-        self.db_session.query(UserEntity).filter(UserEntity.id == other.id)\
-            .update({
+        self.db_session.query(UserEntity).filter(UserEntity.id == other.id).update(
+            {
                 UserEntity.name: other.name,
                 UserEntity.email: other.email,
-            })
+            }
+        )
         self.commit()
         return other
 

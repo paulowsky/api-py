@@ -26,6 +26,21 @@ jobs:
         run: |
           poetry install
 
+      - name: Lint
+        run: |
+          poetry run flake8 app/
+
+      - name: Format
+        run: |
+          poetry run black --check app/
+
       - name: Run tests
         run: |
-          poetry run pytest --no-header --verbosity=3 --cov=app tests/
+          poetry run pytest --no-header --verbosity=3 --cov=app --cov-report=xml tests/
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          file: ./coverage.xml
+          flags: unit-tests
+          fail_ci_if_error: true

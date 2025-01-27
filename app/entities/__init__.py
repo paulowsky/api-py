@@ -12,11 +12,10 @@ class BaseEntity(metaclass=ABCMeta):
 
     @classmethod
     @abstractmethod
-    def from_dict(cls, other: dict):
-        ...
+    def from_dict(cls, other: dict): ...
 
     @abstractmethod
-    def to_dict(self):
-        ...
+    def to_dict(self): ...
+
 
 BaseModel = declarative_base()
