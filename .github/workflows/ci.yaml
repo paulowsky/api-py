@@ -37,10 +37,3 @@ jobs:
       - name: Run tests
         run: |
           poetry run pytest --no-header --verbosity=3 --cov=app --cov-report=xml tests/
-
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
-        with:
-          file: ./coverage.xml
-          flags: unit-tests
-          fail_ci_if_error: true
